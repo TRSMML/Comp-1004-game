@@ -59,23 +59,6 @@ function load(){
 		});
 }
 
-// async function loadYouPOS(){
-	// const response = await fetch('./save.json');
-	
-	// return response.json();
-//}
-
-// async function setTime(){
-	// data = await loadYouPOS();
-	
-	// console.log(data.seconds);
-	
-	// secs = data.seconds;
-	// mins = data.minutes;
-	// hrs  = data.hours;
-	// days = data.days;
-//}
-
 function loadButton(){
 	//load();
 	//setTime();
