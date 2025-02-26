@@ -65,6 +65,13 @@ function saveButton(){
 	localStorage.setItem("days",days);
 }
 
+var  textArray = [["Text1","Text2","Text3"],
+				   "This should never Show","This should never Show","This should never Show"];
+
+function action(options,choice){
+	document.getElementById("textTest").textContent = textArray[options][choice];
+}
+
 setInterval(function(){
 	Timerinc();
 },1000);
