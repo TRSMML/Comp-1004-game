@@ -38,13 +38,6 @@ function Timerinc(){
 	document.getElementById("Timer").textContent = timeString;
 }
 
-// const loadbutton = document.getElementById("load");
-// loadbutton.addEventListener("click", load(){
-	// import data from './save.json' assert {type:'json'};
-	// console.log(data);
-	// console.log("merp");
-// });
-
 function load(){
 	fetch('./save.json')
 		.then(response => {
@@ -54,15 +47,11 @@ function load(){
 			return response.json();
 		})
 		.then(data => {
-			//console.log(data);
 			return data;
 		});
 }
 
 function loadButton(){
-	//load();
-	//setTime();
-	//test = localStorage.getItem("test")
 	secs = Number(localStorage.getItem("secs"));
 	mins = Number(localStorage.getItem("mins"));
 	hrs  = Number(localStorage.getItem("hrs"));
