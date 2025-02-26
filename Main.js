@@ -10,68 +10,55 @@ var timeString = "00:00:00"
 var saveFile = {}
 //end of running variables//
 
-
+//makes sure all parts of the time display have 2 digits (cause, well, that's how clocks work)
 function formatTime(time){
-	if (time < 10){
-		return "0" + time;
+	if (time < 10){			//if less that 10,
+		return "0" + time;	//then put "0" at the start so it looks like a clock
 	}
-	else{
-		return time;
+	else{					//if not,
+		return time;		//do nothing, it's aready fine
 	}
 }
 
-function Timerinc(){
-	secs += 1;
-	if (secs == 60){
-		secs = 0;
+function Timerinc(){	//increments then updates clock (runs once a second)
+	secs += 1;			//increment seconds
+	if (secs == 60){	//"every sixty seconds in Africa, a minute passes" - Big man tyrone
+		secs = 0;		//jokes aside, this just checks if secs is 60, if so reset secs and increment mins
 		mins += 1;
 	}
-	if (mins == 60){
+	if (mins == 60){	//if mins is 60, set to 0 and increment hrs
 		mins = 0;
 		hrs += 1;
 	}
-	if (hrs == 60){
+	if (hrs == 24){		//if hrs is 24, set to 0 and increment days
 		hrs = 0;
 		days += 1;
 	}
-	timeString=formatTime(days)+":"+formatTime(hrs)+":"+formatTime(mins)+":"+formatTime(secs);
-	document.getElementById("Timer").textContent = timeString;
+	timeString=formatTime(days)+":"+formatTime(hrs)+":"+formatTime(mins)+":"+formatTime(secs);	//format time to display
+	document.getElementById("Timer").textContent = timeString;									//update time display
 }
 
-function load(){
-	fetch('./save.json')
-		.then(response => {
-			if (!response.ok){
-				throw new Error('ERROR: NETWORK RESPONSE NOT OK');
-			}
-			return response.json();
-		})
-		.then(data => {
-			return data;
-		});
-}
-
-function loadButton(){
+function loadButton(){								//loads the save data from localStorage
 	secs = Number(localStorage.getItem("secs"));
 	mins = Number(localStorage.getItem("mins"));
 	hrs  = Number(localStorage.getItem("hrs"));
 	days = Number(localStorage.getItem("days"));
 }
 
-function saveButton(){
+function saveButton(){								//saves the save data to localStorage
 	localStorage.setItem("secs",(secs));
 	localStorage.setItem("mins",mins);
 	localStorage.setItem("hrs",hrs);
 	localStorage.setItem("days",days);
 }
 
-var  textArray = [["Text1","Text2","Text3"],
+var  textArray = [["Text1","Text2","Text3"],		//will store all text in the game that appears, changes, or disappears in some capacity
 				   "This should never Show","This should never Show","This should never Show"];
 
-function action(options,choice){
+function action(options,choice){					//will perform the action associated with each choice, and update behind the scenes values accordingly
 	document.getElementById("textTest").textContent = textArray[options][choice];
 }
 
-setInterval(function(){
+setInterval(function(){	//functions that should run once a second
 	Timerinc();
 },1000);
