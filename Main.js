@@ -4,7 +4,12 @@ var mins = 0;
 var hrs  = 0;
 var days = 0;
 //end of save file//
-
+var saveJSON = {	//this attrocity is so I don't have to rework all the save file code (even if it isn't that big currently)
+	secsonds: secs,
+	minutes: mins,
+	hours: hrs,
+	dayss: days
+}
 //running variables//
 var timeString = "00:00:00"
 var saveFile = {}
@@ -50,6 +55,10 @@ function saveButton(){								//saves the save data to localStorage
 	localStorage.setItem("mins",mins);
 	localStorage.setItem("hrs",hrs);
 	localStorage.setItem("days",days);
+}
+
+function exportButton(){
+	
 }
 
 var  textArray = [["Text1","Text2","Text3"],		//will store all text in the game that appears, changes, or disappears in some capacity
