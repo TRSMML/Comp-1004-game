@@ -57,21 +57,6 @@ function saveButton(){								//saves the save data to localStorage
 	localStorage.setItem("days",days);
 }
 
-// function exportButton(){
-	// var JSONed = JSON.stringify(saveJSON);								//stringifies object that "stores" the save data
-	// var exportBlob = new Blob([JSONed], {type: "application/json"});	//puts json in a Blob
-	// var url = URL.createObjectURL(exportBlob);							//gives blob a url
-	// var dwnldElement = document.createElement('dwnldElement');			//creates element on page to be "clicked" by later code
-	
-	// dwnldElement.download = 'save.json';	//sets name
-	// dwnldElement.href = url;				//sets url
-	// dwnldElement.id = saveJSON;				//sets id
-	
-	// document.body.appendChild(dwnldElement);//appends document with element that allows downloading
-	// dwnldElement.click();					//simulates click on element
-	// document.querySelector('#' + dwnldElement.id).remove();
-//}
-
 function exportButton(){
 	const blob = new Blob([JSON.stringify(saveJSON,null,2)], {type: 'application/json'});
 	const url = URL.createObjectURL(blob);
