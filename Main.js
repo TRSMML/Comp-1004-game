@@ -1,15 +1,9 @@
-//save file//
-var secs = 0;
-var mins = 0;
-var hrs  = 0;
-var days = 0;
-//end of save file//
-var saveJSON = {	//this attrocity is so I don't have to rework all the save file code (even if it isn't that big currently)
-	secsonds: secs,
-	minutes: mins,
-	hours: hrs,
-	dayss: days
-}
+var saveJSON = {	//this object stores the save file (for real now, the old method I tried just didn't work)
+	"seconds": 0,
+	"minutes": 0,
+	"hours": 0,
+	"days": 0
+};
 //running variables//
 var timeString = "00:00:00"
 var saveFile = {}
@@ -25,36 +19,36 @@ function formatTime(time){
 	}
 }
 
-function Timerinc(){	//increments then updates clock (runs once a second)
-	secs += 1;			//increment seconds
-	if (secs == 60){	//"every sixty seconds in Africa, a minute passes" - Big man tyrone
-		secs = 0;		//jokes aside, this just checks if secs is 60, if so reset secs and increment mins
-		mins += 1;
+function Timerinc(){				//increments then updates clock (runs once a second)
+	saveJSON["seconds"] += 1;			//increment seconds
+	if (saveJSON["seconds"] == 60){	//"every sixty seconds in Africa, a minute passes" - Big man tyrone
+		saveJSON["seconds"] = 0;	//jokes aside, this just checks if seconds is 60, if so reset secs and increment mins
+		saveJSON["minutes"] += 1;
 	}
-	if (mins == 60){	//if mins is 60, set to 0 and increment hrs
-		mins = 0;
-		hrs += 1;
+	if (saveJSON["minutes"] == 60){	//if mins is 60, set to 0 and increment hrs
+		saveJSON["minutes"] = 0;
+		saveJSON["hours"] += 1;
 	}
-	if (hrs == 24){		//if hrs is 24, set to 0 and increment days
-		hrs = 0;
-		days += 1;
+	if (saveJSON["hours"] == 24){	//if hrs is 24, set to 0 and increment days
+		saveJSON["hrs"] = 0;
+		saveJSON["days"] += 1;
 	}
-	timeString=formatTime(days)+":"+formatTime(hrs)+":"+formatTime(mins)+":"+formatTime(secs);	//format time to display
-	document.getElementById("Timer").textContent = timeString;									//update time display
+	timeString=formatTime(saveJSON["days"])+":"+formatTime(saveJSON["hours"])+":"+formatTime(saveJSON["minutes"])+":"+formatTime(saveJSON["seconds"]);	//format time to display
+	document.getElementById("Timer").textContent = timeString;	//update time display
 }
 
 function loadButton(){								//loads the save data from localStorage
-	secs = Number(localStorage.getItem("secs"));
-	mins = Number(localStorage.getItem("mins"));
-	hrs  = Number(localStorage.getItem("hrs"));
-	days = Number(localStorage.getItem("days"));
+	saveJSON["seconds"] = Number(localStorage.getItem("secs"));
+	saveJSON["minutes"] = Number(localStorage.getItem("mins"));
+	saveJSON["hours"]  = Number(localStorage.getItem("hrs"));
+	saveJSON["days"] = Number(localStorage.getItem("days"));
 }
 
 function saveButton(){								//saves the save data to localStorage
-	localStorage.setItem("secs",(secs));
-	localStorage.setItem("mins",mins);
-	localStorage.setItem("hrs",hrs);
-	localStorage.setItem("days",days);
+	localStorage.setItem("secs",saveJSON["seconds"]);
+	localStorage.setItem("mins",saveJSON["minutes"]);
+	localStorage.setItem("hrs",saveJSON["hours"]);
+	localStorage.setItem("days",saveJSON["days"]);
 }
 
 function exportButton(){
