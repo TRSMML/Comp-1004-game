@@ -43,6 +43,13 @@ function Timerinc(){				//increments then updates clock (runs once a second)
 	document.getElementById("Timer").textContent = timeString;	//update time display
 }
 
+function updateDisplay(){
+	document.getElementById("FlavorText").innerHTML = textArray[saveJSON["scene"]][0];	//update Text
+	document.getElementById("B1").innerHTML = textArray[saveJSON["scene"]][1][0];		//update buttons:
+	document.getElementById("B2").innerHTML = textArray[saveJSON["scene"]][1][1];
+	document.getElementById("B3").innerHTML = textArray[saveJSON["scene"]][1][2];
+}
+
 function loadButton(){								//loads the save data from localStorage
 	saveJSON["seconds"] = Number(localStorage.getItem("secs"));
 	saveJSON["minutes"] = Number(localStorage.getItem("mins"));
@@ -60,6 +67,11 @@ function loadButton(){								//loads the save data from localStorage
 	stats[2] = saveJSON["social"];
 	stats[3] = saveJSON["work"];
 	stats[4] = saveJSON["home"];
+	//and update scene to reflect load
+	document.getElementById("FlavorText").innerHTML = textArray[saveJSON["scene"]][0];	//update Text
+	document.getElementById("B1").innerHTML = textArray[saveJSON["scene"]][1][0];		//update buttons:
+	document.getElementById("B2").innerHTML = textArray[saveJSON["scene"]][1][1];
+	document.getElementById("B3").innerHTML = textArray[saveJSON["scene"]][1][2];
 };
 
 function saveButton(){								//saves the save data to localStorage
@@ -134,7 +146,10 @@ function importButton() {
 	stats[2] = saveJSON["social"];
 	stats[3] = saveJSON["work"];
 	stats[4] = saveJSON["home"];
+	//and update scene to reflect load
+	setTimeout(updateDisplay,1000); //added wait so Javascipt doesn't trip and die
 }
+
 
 var stats = [10,10,10,0,0];//Food,Motivation,Social,Work,Home
 var max   = [20,20,20,20,20];
