@@ -2,7 +2,13 @@ var saveJSON = {	//this object stores the save file (for real now, the old metho
 	"seconds": 0,
 	"minutes": 0,
 	"hours": 0,
-	"days": 0
+	"days": 0,
+	"food":10,
+	"motivation":10,
+	"social":10,
+	"work":0,
+	"home":0,
+	"scene":0,
 };
 //running variables//
 var timeString = "00:00:00"
@@ -42,16 +48,49 @@ function loadButton(){								//loads the save data from localStorage
 	saveJSON["minutes"] = Number(localStorage.getItem("mins"));
 	saveJSON["hours"]  = Number(localStorage.getItem("hrs"));
 	saveJSON["days"] = Number(localStorage.getItem("days"));
-}
+	saveJSON["food"] = Number(localStorage.getItem("food"));
+	saveJSON["motivation"] = Number(localStorage.getItem("motivation"));
+	saveJSON["social"] = Number(localStorage.getItem("social"));
+	saveJSON["work"] = Number(localStorage.getItem("work"));
+	saveJSON["home"] = Number(localStorage.getItem("home"));
+	saveJSON["scene"]= Number(localStorage.getItem("scene"));
+	//workaround for how the save system needs the data
+	stats[0] = saveJSON["food"];
+	stats[1] = saveJSON["motivation"];
+	stats[2] = saveJSON["social"];
+	stats[3] = saveJSON["work"];
+	stats[4] = saveJSON["home"];
+};
 
 function saveButton(){								//saves the save data to localStorage
 	localStorage.setItem("secs",saveJSON["seconds"]);
 	localStorage.setItem("mins",saveJSON["minutes"]);
 	localStorage.setItem("hrs",saveJSON["hours"]);
 	localStorage.setItem("days",saveJSON["days"]);
+	localStorage.setItem("stats",saveJSON["stats"]);
+	//janky workaround so the code behaves with each other
+	saveJSON["food"] = stats[0];
+	saveJSON["motivation"] = stats[1];
+	saveJSON["social"] = stats[2];
+	saveJSON["work"] = stats[3];
+	saveJSON["home"] = stats[4];
+	//anyways, back to saving
+	localStorage.setItem("food",saveJSON["food"]);
+	localStorage.setItem("motivation",saveJSON["motivation"]);
+	localStorage.setItem("social",saveJSON["social"]);
+	localStorage.setItem("work",saveJSON["work"]);
+	localStorage.setItem("home",saveJSON["home"]);
+	localStorage.setItem("scene",saveJSON["scene"]);
 }
 
 function exportButton(){
+	//janky workaround so the code behaves with each other
+	saveJSON["food"] = stats[0];
+	saveJSON["motivation"] = stats[1];
+	saveJSON["social"] = stats[2];
+	saveJSON["work"] = stats[3];
+	saveJSON["home"] = stats[4];
+	
 	const blob = new Blob([JSON.stringify(saveJSON,null,2)], {type: 'application/json'});	//creates blob containing json data
 	const url = URL.createObjectURL(blob);													//creates temporary URL for json data
 	const a = document.createElement('a');													//creates element on page to be "clicked" later
@@ -61,40 +100,6 @@ function exportButton(){
 	a.click();																				//simulates click on the element
 	URL.revokeObjectURL(url);																//deletes url for json file as we're done with it now
 }
-
-const pickOpts = {
-	types:[
-	{
-		description: "Json File",
-		accept: {
-			"json/*":[".json"],
-		},
-	},
-	],
-	multiple: false,
-	startIn: "downloads",
-};
-
-let importTest;
-// async function importButton(){
-	// [importJSON] = await window.showOpenFilePicker(pickOpts);
-	// const fileData = await importJSON.getFile();
-	// reader = new FileReader();
-	
-	// let helpme = "NULL";
-	
-	// reader.addEventListener(
-		// "load",
-		// () => {
-			// helpme = reader.result;
-		// },
-		// false,
-	// );
-	
-	// reader.readAsText(fileData);
-	// console.log(helpme);
-	// alert("This feature, despite my best efforts, does not work. Sorry");
-// }
 
 function importButton() {
 	const [file] = document.querySelector("input[type=file]").files;	//gets the file from the input element
@@ -110,16 +115,27 @@ function importButton() {
 		saveJSON["minutes"]	= JSONed["minutes"]
 		saveJSON["hours"] 	= JSONed["hours"]
 		saveJSON["days"]	= JSONed["days"]
+		saveJSON["food"]	= JSONed["food"]
+		saveJSON["motivation"]	= JSONed["motivation"]
+		saveJSON["social"]	= JSONed["social"]
+		saveJSON["work"]	= JSONed["work"]
+		saveJSON["home"]	= JSONed["home"]
+		saveJSON["scene"]	= JSONed["scene"]
     },
     false,
   );
   
 	if (file) {
 		reader.readAsText(file);
-	}
+	};
+	//workaround for how the save system needs the data
+	stats[0] = saveJSON["food"];
+	stats[1] = saveJSON["motivation"];
+	stats[2] = saveJSON["social"];
+	stats[3] = saveJSON["work"];
+	stats[4] = saveJSON["home"];
 }
 
-var scene = 0;
 var stats = [10,10,10,0,0];//Food,Motivation,Social,Work,Home
 var max   = [20,20,20,20,20];
 var min   = [0,0,0,0,0];
@@ -158,7 +174,7 @@ var  textArray = 	[["(MONDAY): You wake up in the Morning",
 
 function action(choice){		//will perform the action associated with each choice, and update behind the scenes values accordingly
 	for (let i = 0; i < stats.length; i++){
-		stats[i] += textArray[scene][2][choice][i];	//add and subtract based on player action
+		stats[i] += textArray[saveJSON["scene"]][2][choice][i];	//add and subtract based on player action
 		//keep stats in bounds
 		if (stats < 0){
 			stats = 0;
@@ -167,11 +183,11 @@ function action(choice){		//will perform the action associated with each choice,
 			stats = 20;
 		};
 	}
-	scene = textArray[scene][3][choice];									//change scene
-	document.getElementById("FlavorText").innerHTML = textArray[scene][0];	//update Text
-	document.getElementById("B1").innerHTML = textArray[scene][1][0];		//update buttons:
-	document.getElementById("B2").innerHTML = textArray[scene][1][1];
-	document.getElementById("B3").innerHTML = textArray[scene][1][2];
+	saveJSON["scene"] = textArray[saveJSON["scene"]][3][choice];									//change scene
+	document.getElementById("FlavorText").innerHTML = textArray[saveJSON["scene"]][0];	//update Text
+	document.getElementById("B1").innerHTML = textArray[saveJSON["scene"]][1][0];		//update buttons:
+	document.getElementById("B2").innerHTML = textArray[saveJSON["scene"]][1][1];
+	document.getElementById("B3").innerHTML = textArray[saveJSON["scene"]][1][2];
 }
 
 setInterval(function(){	//functions that should run once a second
