@@ -11,9 +11,10 @@
 		<button type="button" onclick="saveButton()">SAVE</button>
 		<button type="button" onclick="loadButton()">LOAD</button>
 		<button type="button" onclick="exportButton()">EXPORT SAVE</button>
-		<button type="button" onclick="importButton()">IMPORT SAVE</button>
+		<h1> Import Save => </h1>
+		<input type="file" onchange="importButton()">
 		<h1 align="right">Time Played: <span Id="Timer">00:00:00:00</span></h1>
 	</div>
-	<p Id="textTest">Text1<p>
-	<button type="button" onclick="action(0,0)">1</button>	<button type="button" onclick="action(0,1)">2</button>	<button type="button" onclick="action(0,2)">3</button>
+	<p Id="FlavorText">You wake up in the morning<p>
+	<button type="button" Id="B1" onclick="action(0)">Make Food</button>	<button type="button" Id="B2" onclick="action(1)">Browse Phone</button>	<button type="button" Id="B3" onclick="action(2)">Get to work early</button>
 </body>

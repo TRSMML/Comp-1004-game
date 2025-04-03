@@ -9,4 +9,9 @@ body{
 	button {
 		font-size: 20px;
 	}
+	
+	input {
+		font-size: 30px;
+		vertical-align: baseline;
+	}
 }
