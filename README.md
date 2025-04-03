@@ -1,5 +1,6 @@
 # COMP 1004 COURSEWORK: Time Management Game
 ## PLATFORM & OPENING GAME
+download or clone the whole repository to play the game, or else it will not work.
 I Programmed this testing on edge, so I'd reccomend playing via edge or another chromium based browser.
 While I have done a quick preliminary test on firefox, I cannot guarantee the project will run perfectly (especially because a bug in firefox forced me to swap to developing on edge in the first place).
 
