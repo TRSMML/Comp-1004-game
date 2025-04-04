@@ -203,6 +203,12 @@ function action(choice){		//will perform the action associated with each choice,
 	document.getElementById("B1").innerHTML = textArray[saveJSON["scene"]][1][0];		//update buttons:
 	document.getElementById("B2").innerHTML = textArray[saveJSON["scene"]][1][1];
 	document.getElementById("B3").innerHTML = textArray[saveJSON["scene"]][1][2];
+	//update stats display
+	document.getElementById("food").innerHTML = "Food:"+stats[0];
+	document.getElementById("motivation").innerHTML = "Motivation:"+stats[1];
+	document.getElementById("social").innerHTML = "Social:"+stats[2];
+	document.getElementById("work").innerHTML = "Work:"+stats[3];
+	document.getElementById("home").innerHTML = "Home Messiness:"+stats[4];
 }
 
 setInterval(function(){	//functions that should run once a second
